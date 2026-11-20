@@ -63,11 +63,16 @@ export default defineConfig((/* ctx */) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
-      // vueDevtools: true,
-      // https: true,
-      open: true // opens browser window automatically
-    },
 
+        open: true,
+        proxy: {
+          '/api-rc': {
+            target: 'https://api.restcountries.com',
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api-rc/, '')
+          }
+        }
+    },
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
     framework: {
       config: {},
